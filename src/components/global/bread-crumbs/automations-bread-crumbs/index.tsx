@@ -1,24 +1,52 @@
+"use client";
 import { ChevronRight, PencilIcon } from "lucide-react";
 import React from "react";
 import ActivateAutomationButton from "../../activate-automation-button";
+import { useQueryAutomation } from "@/hooks/use-queries";
+import { useEditAutomation } from "@/hooks/use-automation";
+import { useMutationDataState } from "@/hooks/use-mutations";
+import { Input } from "@/components/ui/input";
 
 type Props = {
   id: string;
 };
 
 const AutomationsBreadCrumb = ({ id }: Props) => {
+  const { data } = useQueryAutomation(id);
+  const { edit, enableEdit, inputRef, isPending } = useEditAutomation(id);
+  const { latestVariable } = useMutationDataState(["update-automation"]);
   return (
     <div className="rounded-full w-full p-5 bg-[#18181B1A] flex items-center">
       <div className="flex items-center gap-x-3 min-w-0">
         <p className="text-[#9B9CA0] truncate">Automations</p>
         <ChevronRight className="flex-shrink-0" color="#9B9CA0" />
         <span className="flex gap-x-3 items-center">
-          <p className="text-[#9B9CA0] truncate">
-            This is the automation title
-          </p>
-          <span className="cursor-pointer hover:opacity-75 mr-4 duration-100 transition flex-shrink-0">
-            <PencilIcon size={14} />
-          </span>
+          {edit ? (
+            <Input
+              ref={inputRef}
+              placeholder={
+                isPending ? latestVariable.variables : "Add a new name"
+              }
+              className="bg-transparent h-auto outline-none text-base border-none p-0"
+            />
+          ) : (
+            <p className="text-[#9B9CA0] truncate">
+              {latestVariable?.variables
+                ? latestVariable?.variables.name
+                : //@ts-ignore
+                  data?.data?.name}
+            </p>
+          )}
+          {edit ? (
+            <></>
+          ) : (
+            <span
+              className="cursor-pointer hover:opacity-75 mr-4 duration-100 transition flex-shrink-0"
+              onClick={enableEdit}
+            >
+              <PencilIcon size={14} />
+            </span>
+          )}
         </span>
       </div>
       <div className="flex items-center gap-x-5 ml-auto">
@@ -31,7 +59,7 @@ const AutomationsBreadCrumb = ({ id }: Props) => {
           </p>
         </div>
       </div>
-      <ActivateAutomationButton />
+      <ActivateAutomationButton id={id} />
     </div>
   );
 };

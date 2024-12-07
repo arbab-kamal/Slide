@@ -1,8 +1,12 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
+import ClerkAuthState from "@/components/global/clerk-auth-state";
 
 const Header = () => {
+  const { isSignedIn } = useUser();
   return (
     <>
       <header className="container mx-auto px-4 py-6">
@@ -38,9 +42,18 @@ const Header = () => {
               <ArrowRight className="ml-1 h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
             </Link>
           </nav>
-          <Button className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm transition-all">
-            <Link href="/sign-in">Login</Link>
-          </Button>
+          <div>
+            {isSignedIn ? (
+              // Render when user is signed in
+              <div>
+                <ClerkAuthState />
+              </div>
+            ) : (
+              <Button className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm transition-all">
+                <Link href="/sign-in">Login</Link>
+              </Button>
+            )}
+          </div>
         </div>
       </header>
     </>

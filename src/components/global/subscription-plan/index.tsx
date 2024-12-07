@@ -1,4 +1,4 @@
-// import { useQueryUser } from "@/hooks/user-queries";
+import { useQueryUser } from "@/hooks/use-queries";
 
 type Props = {
   type: "FREE" | "PRO";
@@ -6,7 +6,6 @@ type Props = {
 };
 
 export const SubscriptionPlan = ({ children, type }: Props) => {
-  //   const { data } = useQueryUser();
-  //   return data?.data?.subscription?.plan === type && children;
-  return children;
+  const { data } = useQueryUser();
+  return data?.data?.subscription?.plan === type && children;
 };
