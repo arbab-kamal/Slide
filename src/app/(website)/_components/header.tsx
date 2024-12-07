@@ -41,6 +41,13 @@ const Header = () => {
               About{" "}
               <ArrowRight className="ml-1 h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
             </Link>
+            <Link
+              href="/privacypolicy"
+              className="hover:text-white transition-colors group flex items-center"
+            >
+              PrivacyPolicy{" "}
+              <ArrowRight className="ml-1 h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+            </Link>
           </nav>
           <div>
             {isSignedIn ? (
