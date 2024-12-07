@@ -11,6 +11,9 @@ const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Slide",
   description: "Automate DMs and comments on instagram",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({

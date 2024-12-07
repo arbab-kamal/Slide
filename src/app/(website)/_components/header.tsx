@@ -53,7 +53,9 @@ const Header = () => {
             {isSignedIn ? (
               // Render when user is signed in
               <div>
-                <ClerkAuthState />
+                <Button className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm transition-all">
+                  <Link href="/dashboard">Dashboard</Link>
+                </Button>
               </div>
             ) : (
               <Button className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm transition-all">
